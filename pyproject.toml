@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "python_project"
+version = "0.1.0"
+description = "A generic Python project scaffold"
+requires-python = ">=3.11"
+authors = [{name = "Your Name", email = "you@example.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+keywords = ["python", "project"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+# Runtime dependencies (none for scaffold)
+dependencies = []
+
+[project.optional-dependencies]
+# Development dependencies
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "ruff",
+    "ruff-lsp",
+    "ruff-format",
+    "mypy",
+    "pre-commit",
+]
+
+[tool.ruff]
+selected = ["E", "F", "W", "C90", "I", "N", "UP", "YTT", "BLE", "A", "C4", "PT", "T10", "SIM", "RUF"]
+# Enable linting and formatting
+fix = true
+line-length = 90
+exclude = ["__pycache__", "build", "dist"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_configs = true
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov=src/python_project --cov-report=term-missing"
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.pre-commit]
+repos = [
+    {repo = "https://github.com/charliermarsh/ruff-pre-commit", rev = "v0.0.281", hooks = [{id = "ruff"}]},
+    {repo = "https://github.com/pre-commit/mirrors-mypy", rev = "v1.9.0", hooks = [{id = "mypy"}]},
+]
